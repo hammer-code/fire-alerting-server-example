@@ -1,0 +1,8 @@
+{
+  "restartable": "rs",
+  "verbose": true,
+  "watch": [
+    "src"
+  ],
+  "ext": "js ejs"
+}
