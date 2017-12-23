@@ -101,13 +101,22 @@ fetch('/registered-rooms')
     // subscribe event websocket
     socket.on('sensor-log', function (room) {
       updateSensorValues(room);
-      const { smoke, fire, createdAt } = room;
-      appendLog(room.id, { smoke, fire, createdAt });
+
+      appendLog(room.id, {
+        smoke: room.smoke,
+        fire: room.fire,
+        createdAt: room.createdAt, 
+      });
     });
 
     socket.on('fire-occured', function (roomInFire) {
       if (roomInFire.isFireOccured) {
         changeRoomStatus(roomInFire.id, 'Fire occured');
+        var sound = new Howl({
+          src: ['/sound/alarm.mp3']
+        });
+        
+        sound.play();
       }
     });
   });
