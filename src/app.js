@@ -16,8 +16,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Ruangan yang terdaftar di sistem
 var registeredRooms = [
-  { id: 1, name: 'Ruangan Dosen', status: 'normal' },
-  { id: 2, name: 'Koperasi', status: 'normal' },
+  { id: 1, name: 'Ruangan Dosen', status: 'Normal' },
+  { id: 2, name: 'Koperasi', status: 'Normal' },
 ];
 
 // untuk menyimpan log dari device
@@ -55,6 +55,17 @@ app.get('/logs', function (req, res) {
 
 app.get('/registered-rooms', function (req, res) {
   res.json(registeredRooms);
+});
+
+app.post('/status', function (req, res) {
+  var { roomId, status } = req.body;
+
+  updateRoomStatus(
+    parseInt(roomId, 10),
+    status
+  );
+
+  res.json({ message: 'Ok' });
 });
 
 app.post('/logs', function (req, res) {
@@ -108,6 +119,8 @@ app.post('/logs', function (req, res) {
   if (isFireOccured) {
     io.emit('fire-occured', { ...room, isFireOccured, fire, smoke });
     updateRoomStatus(roomId, 'Fire occured');
+  } else {
+    updateRoomStatus(roomId, 'Normal');
   }
   
   // catatan: kalau request dari alat tiap detik

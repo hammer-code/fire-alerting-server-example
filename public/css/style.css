@@ -26,11 +26,21 @@ body {
 .log-header {
   padding: 1rem;
   border: 1px solid #dae4e9;
-  border-top: 0;
 }
 
 .log {
   padding: 1rem;
   border: 1px solid #dae4e9;
   border-top: 0;
+}
+
+.action {
+  padding: 10px 0;
+}
+
+.btn {
+  border-radius: 3px;
+  padding: 8px 6px;
+  text-align: center;
+  border: 1px solid #dae4e9;
 }
